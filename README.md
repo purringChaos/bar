@@ -9,9 +9,10 @@ package main
 const OpenWeatherAPIKey = "your api key"
 const WeatherLocation = "your location"
 
-var Times = map[string]string{
-	"": "Europe/London",
+var Times = []map[string]string{
+	{"": "Europe/London"},
 }
+
 ```
 and then compile it and set your status_command in conf.
 Feel free to disable any module in main.go and fork it for your own use.

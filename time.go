@@ -21,13 +21,15 @@ func loadLocation(loc string) *time.Location {
 	return l
 }
 
-func NewTimeWidget(s *StatusBar, times map[string]string) *TimeWidget {
+func NewTimeWidget(s *StatusBar, times []map[string]string) *TimeWidget {
 	w := &TimeWidget{}
 	w.s = s
 	w.times = make([]Time, 0)
 	
-	for key, value := range times {
-		w.times = append(w.times, Time{loadLocation(value), key})
+	for _, timeVal := range times {
+		for key, value := range timeVal {
+			w.times = append(w.times, Time{loadLocation(value), key})
+		}
 	}
 
 
