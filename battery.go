@@ -72,9 +72,9 @@ func (w BatteryWidget) Start() {
 		}
 
 		if status != "Charging" {
-			if capacity < 70 {
+			if capacity > 70 {
 				colour = "#00ff00"
-			} else if capacity < 40 {
+			} else if capacity > 40 {
 				colour = "#FFA500"
 			} else {
 				colour = "#ff0000"
