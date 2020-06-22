@@ -1,12 +1,9 @@
 package main
 
-
 type TextWidget struct {
-	s *StatusBar
-	text string
-        colour string
-        sep bool
-        sbw int
+	s      *StatusBar
+	text   string
+	colour string
 }
 
 func NewTextWidget(s *StatusBar, text, colour string) TextWidget {
@@ -30,5 +27,5 @@ func (w TextWidget) OnClick(e ClickEvent) {
 }
 
 func (w TextWidget) Start() {
-    return
+	return
 }

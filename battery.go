@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	"time"
 	"path/filepath"
+	"time"
 )
 
 type BatteryWidget struct {
@@ -17,7 +17,7 @@ func NewBatteryWidget(s *StatusBar) BatteryWidget {
 }
 
 func (w BatteryWidget) InitialInfo() Info {
-	return Info{"battery", "none", "battery", "#ffffff", }
+	return Info{"battery", "none", "battery", "#ffffff"}
 }
 
 func (w BatteryWidget) Name() string {
@@ -27,7 +27,6 @@ func (w BatteryWidget) Name() string {
 func (w BatteryWidget) OnClick(e ClickEvent) {
 	return
 }
-
 
 func globGetFirst(fp string) string {
 	paths, err := filepath.Glob(fp)
@@ -51,7 +50,6 @@ func (w BatteryWidget) Start() {
 	var descriptor string
 	var posNegIndicator string
 
-
 	for {
 		canGetWatts := false
 		batInfo := "bat "
@@ -66,7 +64,7 @@ func (w BatteryWidget) Start() {
 		} else if status == "Discharging" {
 			descriptor = "D"
 			posNegIndicator = "-"
-		}  else if status == "Unknown" {
+		} else if status == "Unknown" {
 			descriptor = "U"
 			posNegIndicator = "?"
 		}
@@ -102,7 +100,7 @@ func (w BatteryWidget) Start() {
 			batInfo = batInfo + fmt.Sprintf(" %s%.2fW", posNegIndicator, watts)
 		}
 
-		w.s.Add(Info{"battery", "none", batInfo, colour, })
+		w.s.Add(Info{"battery", "none", batInfo, colour})
 		time.Sleep(time.Millisecond * 400)
 	}
 }

@@ -13,6 +13,12 @@ var Times = []map[string]string{
 	{"": "Europe/London"},
 }
 
+var TextRotations = []string{
+	"$bold{#ff0000{owo}}",
+	"$italic{#0000ff{uwu}}",
+}
+
+
 ```
 and then compile it and set your status_command in conf.
 Feel free to disable any module in main.go and fork it for your own use.

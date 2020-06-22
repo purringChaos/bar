@@ -20,9 +20,9 @@ type WeatherData struct {
 }
 
 type WeatherWidget struct {
-	s *StatusBar
+	s        *StatusBar
 	location string
-	apikey string
+	apikey   string
 }
 
 func NewWeatherWidget(s *StatusBar, loc, apikey string) WeatherWidget {
@@ -34,7 +34,7 @@ func NewWeatherWidget(s *StatusBar, loc, apikey string) WeatherWidget {
 }
 
 func (w WeatherWidget) InitialInfo() Info {
-	return Info{"weather", "none", "weather", "#ffffff", }
+	return Info{"weather", "none", "weather", "#ffffff"}
 }
 
 func (w WeatherWidget) Name() string {
@@ -47,7 +47,7 @@ func (w WeatherWidget) OnClick(e ClickEvent) {
 
 func (w WeatherWidget) Start() {
 	for {
-		res, err := http.Get("http://api.openweathermap.org/data/2.5/weather?q="+w.location+"&appid="+w.apikey+"&units=metric")
+		res, err := http.Get("http://api.openweathermap.org/data/2.5/weather?q=" + w.location + "&appid=" + w.apikey + "&units=metric")
 		if err != nil {
 			time.Sleep(time.Minute)
 			continue
@@ -59,7 +59,7 @@ func (w WeatherWidget) Start() {
 			continue
 		}
 
-		i := Info{"weather", "none", fmt.Sprintf("%d°C %s", int(weather.Main.Temp), weather.Weathers[0].Main), "#ffffff", }
+		i := Info{"weather", "none", fmt.Sprintf("%d°C %s", int(weather.Main.Temp), weather.Weathers[0].Main), "#ffffff"}
 		// My preferred temp ranges.
 		if weather.Main.Temp >= 20 {
 			i.Colour = "#ff0000"
