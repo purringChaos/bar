@@ -4,6 +4,7 @@ import (
 	"encoding/hex"
 	"math/rand"
 	"time"
+	"sync"
 )
 
 func genRandString() string {
@@ -20,6 +21,7 @@ type RotatingTextWidget struct {
 	index    int
 	randID   string
 	duration time.Duration
+	mutex sync.Mutex
 }
 
 func NewRotatingTextWidget(s *StatusBar, texts []string, duration time.Duration) *RotatingTextWidget {
@@ -44,16 +46,20 @@ func (w *RotatingTextWidget) OnClick(e ClickEvent) {
 }
 
 func (w *RotatingTextWidget) rotate() {
+	w.mutex.Lock()
 	if w.index == len(w.texts)-1 {
 		w.index = 0
 	} else {
 		w.index = w.index + 1
 	}
+	w.mutex.Unlock()
 	w.update()
 }
 
 func (w *RotatingTextWidget) update() {
+	w.mutex.Lock()
 	w.s.Add(Info{w.randID, "pango", w.texts[w.index], "#ffffff"})
+	w.mutex.Unlock()
 }
 
 func (w *RotatingTextWidget) Start() {
