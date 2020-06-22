@@ -14,14 +14,30 @@ func debugLog(a ...interface{}) {
 	fmt.Fprintln(os.Stderr, a...)
 }
 
-var colourRegex = regexp.MustCompile("(#[0-9a-fA-F]{6}){(.*?)}")
-var italicRegex = regexp.MustCompile(`\$(i|italic|italics){(.*)}`)
-var boldRegex = regexp.MustCompile(`\$(b|bold){(.*)}`)
+func Italics(text string) string {
+	return "<i>"+text+"</i>"
+}
+
+func Bold(text string) string {
+	return "<b>"+text+"</b>"
+}
+
+func Colour(colour, text string) string {
+	return "<span foreground=\""+colour+"\">"+text+"</span>"
+}
+
+var colourRegex = regexp.MustCompile("(?U)(#[0-9a-fA-F]{6}){(.*?)}")
+var italicRegex = regexp.MustCompile(`(?U)\$(i|italic|italics){(.*)}`)
+var boldRegex = regexp.MustCompile(`(?U)\$(b|bold){(.*)}`)
 
 func rewriteInfoText(s string) string {
-	s = colourRegex.ReplaceAllString(s, "<span foreground=\"$1\">$2</span>")
-	s = italicRegex.ReplaceAllString(s, "<i>$2</i>")
-	s = boldRegex.ReplaceAllString(s, "<b>$2</b>")
+	var oldS string
+	for oldS != s {
+		oldS = s
+		s = italicRegex.ReplaceAllString(s, "<i>$2</i>")
+		s = boldRegex.ReplaceAllString(s, "<b>$2</b>")
+		s = colourRegex.ReplaceAllString(s, "<span foreground=\"$1\">$2</span>")
+	}
 	return s
 }
 

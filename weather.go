@@ -58,14 +58,24 @@ func (w WeatherWidget) Start() {
 			time.Sleep(time.Minute)
 			continue
 		}
-
-		i := Info{"weather", "none", fmt.Sprintf("%d°C %s", int(weather.Main.Temp), weather.Weathers[0].Main), "#ffffff"}
+		var tempColour string
+		var infoString string
+		infoString = infoString + Colour(AccentLightColour, Bold("weather"))
 		// My preferred temp ranges.
 		if weather.Main.Temp >= 20 {
-			i.Colour = "#ff0000"
-		} else if weather.Main.Temp <= 18 {
-			i.Colour = "#00ff00"
+			tempColour = RedColour
+		} else if weather.Main.Temp == 19 {
+			tempColour = OrangeColour
+		} else if weather.Main.Temp == 18 {
+			tempColour = YellowColour
+		} else {
+			tempColour = GreenColour
 		}
+
+		infoString = infoString + " " + Colour(tempColour, fmt.Sprintf("%d", int(weather.Main.Temp)))
+		infoString = infoString + Colour(AccentLightColour, "°") + Colour(AccentDarkColour, "C")
+		infoString = infoString + " " + Colour(GreenColour, weather.Weathers[0].Main)
+		i := Info{"weather", "pango", infoString, TextColour}
 
 		w.s.Add(i)
 		time.Sleep(time.Minute * 15)

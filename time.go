@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/purringChaos/libKitteh/datetime"
 	"time"
+	"fmt"
 )
 
 type Time struct {
@@ -53,19 +54,51 @@ func (w *TimeWidget) OnClick(e ClickEvent) {
 	return
 }
 
-func (w *TimeWidget) Update() {
-	inLoc := w.times[w.timeIndex].Location
-	if inLoc == nil {
-		w.s.Add(Info{"time", "none", w.times[w.timeIndex].Prefix + "Invalid Timezone", "#ffffff"})
-		return
-	}
-	current := time.Now().In(inLoc)
-	dateStr := datetime.Pretty(current, datetime.PrettyConfig{
+
+func dateTimeToString(t time.Time) string {
+	tdc := datetime.PrettyStruct(t, datetime.PrettyConfig{
 		Use12HourTime:      true,
 		RemoveEmptySeconds: false,
 		HideSeconds:        false,
 	})
-	w.s.Add(Info{"time", "none", w.times[w.timeIndex].Prefix + dateStr, "#ffffff"})
+
+	var timeString string
+	timeString = timeString + Colour(RedColour, tdc.Hour)
+	timeString = timeString + Colour(AccentLightColour, ":") 
+	timeString = timeString + Colour(OrangeColour, tdc.Minutes)
+	if tdc.Seconds != "" {
+
+		timeString = timeString + Colour(AccentLightColour, ":") 
+		timeString = timeString + Colour(YellowColour, tdc.Seconds)
+
+	}
+	timeString = timeString + Colour(AccentDarkColour, tdc.Ending)
+
+	dateStr := fmt.Sprintf("%s %s %s%s %s %s %s %s %s %s",
+		Colour(GreenColour, tdc.Weekday),
+		Colour(PurpleColour, "the"),
+		Colour(YellowColour, tdc.Day),
+		Colour(AccentMediumColour, tdc.DayOrdinal),
+		Colour(PurpleColour, "of"),
+		Colour(RedColour, tdc.Month),
+		Colour(PurpleColour, "in"),
+		Colour(AccentLightColour, tdc.Year),
+		Colour(PurpleColour, "at"),
+		timeString,
+	)
+
+	return dateStr
+}
+
+func (w *TimeWidget) Update() {
+	inLoc := w.times[w.timeIndex].Location
+	if inLoc == nil {
+		w.s.Add(Info{"time", "pango", w.times[w.timeIndex].Prefix + "Invalid Timezone", "#ffffff"})
+		return
+	}
+	current := time.Now().In(inLoc)
+	dateStr := dateTimeToString(current)
+	w.s.Add(Info{"time", "pango", w.times[w.timeIndex].Prefix + dateStr, "#ffffff"})
 }
 
 func (w *TimeWidget) Start() {

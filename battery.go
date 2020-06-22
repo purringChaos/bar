@@ -17,7 +17,7 @@ func NewBatteryWidget(s *StatusBar) BatteryWidget {
 }
 
 func (w BatteryWidget) InitialInfo() Info {
-	return Info{"battery", "none", "battery", "#ffffff"}
+	return Info{"battery", "pango", "battery", TextColour}
 }
 
 func (w BatteryWidget) Name() string {
@@ -52,35 +52,41 @@ func (w BatteryWidget) Start() {
 
 	for {
 		canGetWatts := false
-		batInfo := "bat "
+		batInfo := Colour(AccentLightColour, Bold("bat")) + " "
 		capacity := readFileAsFloat(capacityPath)
 		status := readFileAsString(statusPath)
 
-		colour := "#ffffff"
+		colour := TextColour
 		if status == "Charging" {
-			descriptor = "C"
+			descriptor = Colour(GreenColour, "(C)")
 			posNegIndicator = "+"
-			colour = "#00ff00"
+			colour = GreenColour
 		} else if status == "Discharging" {
-			descriptor = "D"
+			if capacity > 50 {
+				descriptor = Colour(OrangeColour, "(D)")
+			} else {
+				descriptor = Colour(RedColour, "(D)")
+			}
 			posNegIndicator = "-"
 		} else if status == "Unknown" {
-			descriptor = "U"
+			descriptor = Colour(YellowColour, "(D)")
 			posNegIndicator = "?"
 		}
 
 		if status != "Charging" {
-			if capacity > 70 {
-				colour = "#00ff00"
+			if capacity > 80 {
+				colour = GreenColour
+			} else if capacity > 60 {
+				colour = YellowColour
 			} else if capacity > 40 {
-				colour = "#FFA500"
+				colour = OrangeColour
 			} else {
-				colour = "#ff0000"
+				colour = RedColour
 			}
 		}
 
-		batInfo = batInfo + fmt.Sprintf("(%s)", descriptor)
-		batInfo = batInfo + fmt.Sprintf(" %d%%", int(capacity))
+		batInfo = batInfo + descriptor
+		batInfo = batInfo + " " + Colour(colour, fmt.Sprintf("%d", int(capacity)) + Colour(AccentDarkColour, "%"))
 
 		if powerNowPath != "" {
 			watts = readFileAsFloat(powerNowPath) / 1000000
@@ -97,10 +103,10 @@ func (w BatteryWidget) Start() {
 		}
 
 		if canGetWatts {
-			batInfo = batInfo + fmt.Sprintf(" %s%.2fW", posNegIndicator, watts)
+			batInfo = batInfo + " " + Colour(PurpleColour, fmt.Sprintf("%s%.2fW", posNegIndicator, watts))
 		}
 
-		w.s.Add(Info{"battery", "none", batInfo, colour})
+		w.s.Add(Info{"battery", "pango", batInfo, TextColour})
 		time.Sleep(time.Millisecond * 400)
 	}
 }
