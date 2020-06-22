@@ -4,6 +4,8 @@ package main
 
 func main() {
 	s := NewStatusBar()
+	s.AddWidget(NewMemoryWidget(s))
+
 	s.AddWidget(NewCPUWidget(s))
 	//s.AddWidget(NewTextWidget(s, "OwO!", "#ffffff"))
 	//s.AddWidget(NewRotatingTextWidget(s, TextRotations, time.Second * 5))

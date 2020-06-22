@@ -1,4 +1,8 @@
+github.com/dustin/go-humanize v1.0.0 h1:VSnTsYCnlFHaM2/igO1h6X3HA71jcobQuxemgkq4zYo=
+github.com/dustin/go-humanize v1.0.0/go.mod h1:HtrtbFcZ19U5GC7JDqmcUSB87Iq5E25KnS6fMYU6eOk=
 github.com/purringChaos/libKitteh v0.0.0-20200622113928-327ee745d797 h1:NrEYlXYGXKMOvFrPXNkyjGNzo7SqmJWe4DoVSi1Aq+w=
 github.com/purringChaos/libKitteh v0.0.0-20200622113928-327ee745d797/go.mod h1:AbITxJYIYXFcopdHsBF0k466RKbnnKMzYkUqqLnRRTk=
 github.com/shirou/gopsutil v2.20.6-0.20200621123649-b806400ff09a+incompatible h1:ySGqowQJjwRo+734zFJQ4LrOFXt1ikzplhSYMpbEbBo=
 github.com/shirou/gopsutil v2.20.6-0.20200621123649-b806400ff09a+incompatible/go.mod h1:5b4v6he4MtMOwMlS0TUMTu2PcXUg8+E1lC7eC3UO/RA=
+golang.org/x/sys v0.0.0-20200620081246-981b61492c35 h1:wb/9mP8eUAmHfkM8RmpeLq6nUA7c2i5+bQOtcDftjaE=
+golang.org/x/sys v0.0.0-20200620081246-981b61492c35/go.mod h1:h1NjWce9XRLGQEsW7wpKNCjG9DtNlClVuFLEZdDNbEs=
