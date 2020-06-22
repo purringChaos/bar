@@ -17,7 +17,7 @@ func NewBatteryWidget(s *StatusBar) BatteryWidget {
 }
 
 func (w BatteryWidget) InitialInfo() Info {
-	return Info{"battery", "none", "battery", "#ffffff"}
+	return Info{"battery", "none", "battery", "#ffffff", }
 }
 
 func (w BatteryWidget) Name() string {
@@ -102,7 +102,7 @@ func (w BatteryWidget) Start() {
 			batInfo = batInfo + fmt.Sprintf(" %s%.2fW", posNegIndicator, watts)
 		}
 
-		w.s.Add(Info{"battery", "none", batInfo, colour})
+		w.s.Add(Info{"battery", "none", batInfo, colour, })
 		time.Sleep(time.Millisecond * 400)
 	}
 }

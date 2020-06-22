@@ -37,7 +37,7 @@ func NewTimeWidget(s *StatusBar, times []map[string]string) *TimeWidget {
 }
 
 func (w TimeWidget) InitialInfo() Info {
-	return Info{"time", "none", "time", "#ffffff"}
+	return Info{"time", "none", "time", "#ffffff", }
 }
 
 func (w TimeWidget) Name() string {
@@ -57,7 +57,7 @@ func (w *TimeWidget) OnClick(e ClickEvent) {
 func (w *TimeWidget) Update() {
 	inLoc := w.times[w.timeIndex].Location
 	if inLoc == nil {
-		w.s.Add(Info{"time", "none", w.times[w.timeIndex].Prefix + "Invalid Timezone", "#ffffff"})
+		w.s.Add(Info{"time", "none", w.times[w.timeIndex].Prefix + "Invalid Timezone", "#ffffff", })
 		return
 	}
 	current := time.Now().In(inLoc)
@@ -66,7 +66,7 @@ func (w *TimeWidget) Update() {
 		RemoveEmptySeconds: false,
 		HideSeconds:        false,
 	})
-	w.s.Add(Info{"time", "none", w.times[w.timeIndex].Prefix + dateStr, "#ffffff"})
+	w.s.Add(Info{"time", "none", w.times[w.timeIndex].Prefix + dateStr, "#ffffff", })
 }
 
 func (w *TimeWidget) Start() {

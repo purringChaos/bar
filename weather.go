@@ -34,7 +34,7 @@ func NewWeatherWidget(s *StatusBar, loc, apikey string) WeatherWidget {
 }
 
 func (w WeatherWidget) InitialInfo() Info {
-	return Info{"weather", "none", "weather", "#ffffff"}
+	return Info{"weather", "none", "weather", "#ffffff", }
 }
 
 func (w WeatherWidget) Name() string {
@@ -59,7 +59,7 @@ func (w WeatherWidget) Start() {
 			continue
 		}
 
-		i := Info{"weather", "none", fmt.Sprintf("%d°C %s", int(weather.Main.Temp), weather.Weathers[0].Main), "#ffffff"}
+		i := Info{"weather", "none", fmt.Sprintf("%d°C %s", int(weather.Main.Temp), weather.Weathers[0].Main), "#ffffff", }
 		// My preferred temp ranges.
 		if weather.Main.Temp >= 20 {
 			i.Colour = "#ff0000"
