@@ -3,8 +3,8 @@ package main
 import (
 	"encoding/hex"
 	"math/rand"
-	"time"
 	"sync"
+	"time"
 )
 
 func genRandString() string {
@@ -21,7 +21,7 @@ type RotatingTextWidget struct {
 	index    int
 	randID   string
 	duration time.Duration
-	mutex sync.Mutex
+	mutex    sync.Mutex
 }
 
 func NewRotatingTextWidget(s *StatusBar, texts []string, duration time.Duration) *RotatingTextWidget {

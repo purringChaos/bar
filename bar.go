@@ -6,8 +6,8 @@ import (
 	"github.com/purringChaos/libKitteh/filesystem"
 	"os"
 	"reflect"
-	"sync"
 	"regexp"
+	"sync"
 )
 
 func debugLog(a ...interface{}) {
