@@ -39,19 +39,27 @@ func (w RotatingTextWidget) Name() string {
 	return w.randID
 }
 
-func (w RotatingTextWidget) OnClick(e ClickEvent) {
-	return
+func (w *RotatingTextWidget) OnClick(e ClickEvent) {
+	w.rotate()
+}
+
+func (w *RotatingTextWidget) rotate() {
+	if w.index == len(w.texts)-1 {
+		w.index = 0
+	} else {
+		w.index = w.index + 1
+	}
+	w.update()
+}
+
+func (w *RotatingTextWidget) update() {
+	w.s.Add(Info{w.randID, "pango", w.texts[w.index], "#ffffff"})
 }
 
 func (w *RotatingTextWidget) Start() {
 	for {
-		w.s.Add(Info{w.randID, "pango", w.texts[w.index], "#ffffff"})
-
-		if w.index == len(w.texts)-1 {
-			w.index = 0
-		} else {
-			w.index = w.index + 1
-		}
+		w.update()
+		w.rotate()
 		time.Sleep(w.duration)
 	}
 }
