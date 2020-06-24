@@ -6,7 +6,6 @@ import (
 	"github.com/purringChaos/libKitteh/filesystem"
 	"os"
 	"reflect"
-	"regexp"
 	"sync"
 )
 
@@ -28,21 +27,6 @@ func Colour(colour, text string) string {
 
 func BgColour(colour, text string) string {
 	return "<span background=\"" + colour + "\">" + text + "</span>"
-}
-
-var colourRegex = regexp.MustCompile("(?U)(#[0-9a-fA-F]{6}){(.*?)}")
-var italicRegex = regexp.MustCompile(`(?U)\$(i|italic|italics){(.*)}`)
-var boldRegex = regexp.MustCompile(`(?U)\$(b|bold){(.*)}`)
-
-func rewriteInfoText(s string) string {
-	var oldS string
-	for oldS != s {
-		oldS = s
-		s = italicRegex.ReplaceAllString(s, "<i>$2</i>")
-		s = boldRegex.ReplaceAllString(s, "<b>$2</b>")
-		s = colourRegex.ReplaceAllString(s, "<span foreground=\"$1\">$2</span>")
-	}
-	return s
 }
 
 type Info struct {
@@ -125,6 +109,8 @@ func (s *StatusBar) AddWidget(w Widget) {
 func (s *StatusBar) sendClickEvent(ce ClickEvent) {
 	if a, ok := s.widgets[ce.Name]; ok {
 		a.OnClick(ce)
+	} else {
+		debugLog("Something broke for " + ce.Name)
 	}
 }
 
@@ -139,9 +125,6 @@ func (s *StatusBar) printInfo() {
 }
 
 func (s *StatusBar) Add(i Info) {
-	if i.Markup == "pango" {
-		i.Text = rewriteInfoText(i.Text)
-	}
 	position := 0
 	var oldInfo Info
 	found := false
