@@ -2,8 +2,9 @@ package main
 
 import (
 	"fmt"
-	psCpu "github.com/shirou/gopsutil/cpu"
 	"time"
+
+	psCpu "github.com/shirou/gopsutil/cpu"
 )
 
 type CPUWidget struct {
@@ -32,7 +33,6 @@ func formatCPUPercent(cpuNum int, percent float64) (out string) {
 		out = out + " "
 		out = out + Colour(percentColour, fmt.Sprintf("%3.0f", percent))
 		out = out + Colour(AccentDarkColour, "%")
-
 	} else {
 		out = out + Colour(AccentLightColour, Bold("cpu")+Colour(YellowColour, "#")+fmt.Sprintf("%d", cpuNum))
 		out = out + " "
@@ -69,8 +69,8 @@ func (w *CPUWidget) updateAllCPU() {
 	for {
 		percent, _ := psCpu.Percent(time.Second/4, false)
 		w.statuses[0] = formatCPUPercent(0, percent[0])
+		w.update()
 	}
-	w.update()
 }
 
 func (w *CPUWidget) updatePerCPU() {
@@ -78,8 +78,8 @@ func (w *CPUWidget) updatePerCPU() {
 		percents, _ := psCpu.Percent(time.Second, true)
 		for i, percent := range percents {
 			w.statuses[i+1] = formatCPUPercent(i+1, percent)
+			w.update()
 		}
-		w.update()
 	}
 }
 

@@ -16,17 +16,11 @@ func NewBatteryWidget(s *StatusBar) BatteryWidget {
 	return w
 }
 
-func (w BatteryWidget) InitialInfo() Info {
-	return Info{"battery", "pango", "battery", TextColour}
-}
+func (w BatteryWidget) InitialInfo() Info { return Info{"battery", "pango", "battery", TextColour} }
 
-func (w BatteryWidget) Name() string {
-	return "battery"
-}
+func (w BatteryWidget) Name() string { return "battery" }
 
-func (w BatteryWidget) OnClick(e ClickEvent) {
-	return
-}
+func (w BatteryWidget) OnClick(e ClickEvent) {}
 
 func globGetFirst(fp string) string {
 	paths, err := filepath.Glob(fp)

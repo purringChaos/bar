@@ -3,10 +3,11 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/purringChaos/libKitteh/filesystem"
 	"os"
 	"reflect"
 	"sync"
+
+	"github.com/purringChaos/libKitteh/filesystem"
 )
 
 func debugLog(a ...interface{}) {
@@ -40,14 +41,6 @@ type ClickEvent struct {
 	Name string `json:"name"`
 }
 
-func waitForever() {
-	wg := sync.WaitGroup{}
-	wg.Add(1)
-	wg.Wait()
-}
-
-type AllInfo []Info
-
 func readFileAsFloat(fn string) float64 {
 	data, _ := filesystem.ReadFloat(fn)
 	return data
@@ -73,7 +66,7 @@ type StatusBar struct {
 
 func NewStatusBar() *StatusBar {
 	s := &StatusBar{}
-	s.widgets = make(map[string]Widget, 0)
+	s.widgets = make(map[string]Widget)
 	s.infos = make([]Info, 0)
 	fmt.Println("{\"version\": 1,\"click_events\": true}")
 	fmt.Println("[")
@@ -147,5 +140,4 @@ func (s *StatusBar) Add(i Info) {
 	if !reflect.DeepEqual(oldInfo, i) {
 		s.printInfo()
 	}
-
 }

@@ -2,9 +2,10 @@ package main
 
 import (
 	"fmt"
+	"time"
+
 	"github.com/dustin/go-humanize"
 	psMem "github.com/shirou/gopsutil/mem"
-	"time"
 )
 
 type MemoryWidget struct {

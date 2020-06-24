@@ -2,8 +2,9 @@ package main
 
 import (
 	"fmt"
-	"github.com/purringChaos/libKitteh/datetime"
 	"time"
+
+	"github.com/purringChaos/libKitteh/datetime"
 )
 
 type Time struct {
@@ -36,13 +37,9 @@ func NewTimeWidget(s *StatusBar, times []map[string]string) *TimeWidget {
 	return w
 }
 
-func (w TimeWidget) InitialInfo() Info {
-	return Info{"time", "none", "time", "#ffffff"}
-}
+func (w TimeWidget) InitialInfo() Info { return Info{"time", "none", "time", "#ffffff"} }
 
-func (w TimeWidget) Name() string {
-	return "time"
-}
+func (w TimeWidget) Name() string { return "time" }
 
 func (w *TimeWidget) OnClick(e ClickEvent) {
 	if w.timeIndex == len(w.times)-1 {
@@ -51,7 +48,6 @@ func (w *TimeWidget) OnClick(e ClickEvent) {
 		w.timeIndex = w.timeIndex + 1
 	}
 	w.Update()
-	return
 }
 
 func dateTimeToString(t time.Time) string {
@@ -66,10 +62,8 @@ func dateTimeToString(t time.Time) string {
 	timeString = timeString + Colour(AccentLightColour, ":")
 	timeString = timeString + Colour(OrangeColour, tdc.Minutes)
 	if tdc.Seconds != "" {
-
 		timeString = timeString + Colour(AccentLightColour, ":")
 		timeString = timeString + Colour(YellowColour, tdc.Seconds)
-
 	}
 	timeString = timeString + Colour(AccentDarkColour, tdc.Ending)
 

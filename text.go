@@ -14,18 +14,10 @@ func NewTextWidget(s *StatusBar, text, colour string) TextWidget {
 	return w
 }
 
-func (w TextWidget) InitialInfo() Info {
-	return Info{w.text, "pango", w.text, w.colour}
-}
+func (w TextWidget) InitialInfo() Info { return Info{w.text, "pango", w.text, w.colour} }
 
-func (w TextWidget) Name() string {
-	return w.text
-}
+func (w TextWidget) Name() string { return w.text }
 
-func (w TextWidget) OnClick(e ClickEvent) {
-	return
-}
+func (w TextWidget) OnClick(e ClickEvent) {}
 
-func (w TextWidget) Start() {
-	return
-}
+func (w TextWidget) Start() {}

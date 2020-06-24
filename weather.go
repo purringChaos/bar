@@ -8,7 +8,7 @@ import (
 )
 
 type Weather struct {
-	Main string `json:main`
+	Main string `json:"main"`
 }
 type MainWeather struct {
 	Temp float32 `json:"temp"`
@@ -37,13 +37,9 @@ func (w WeatherWidget) InitialInfo() Info {
 	return Info{"weather", "none", "weather", "#ffffff"}
 }
 
-func (w WeatherWidget) Name() string {
-	return "weather"
-}
+func (w WeatherWidget) Name() string { return "weather" }
 
-func (w WeatherWidget) OnClick(e ClickEvent) {
-	return
-}
+func (w WeatherWidget) OnClick(e ClickEvent) {}
 
 func (w WeatherWidget) Start() {
 	for {

@@ -33,11 +33,11 @@ func NewRotatingTextWidget(s *StatusBar, texts []string, duration time.Duration)
 	return w
 }
 
-func (w RotatingTextWidget) InitialInfo() Info {
+func (w *RotatingTextWidget) InitialInfo() Info {
 	return Info{w.randID, "pango", "", "#ffffff"}
 }
 
-func (w RotatingTextWidget) Name() string {
+func (w *RotatingTextWidget) Name() string {
 	return w.randID
 }
 
