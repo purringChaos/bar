@@ -34,14 +34,13 @@ func formatCPUPercent(cpuNum int, percent float64) (out string) {
 		out = out + Colour(AccentDarkColour, "%")
 
 	} else {
-		out = out + Colour(AccentLightColour, Bold("cpu") + Colour(YellowColour, "#") + fmt.Sprintf("%d", cpuNum))
+		out = out + Colour(AccentLightColour, Bold("cpu")+Colour(YellowColour, "#")+fmt.Sprintf("%d", cpuNum))
 		out = out + " "
 		out = out + Colour(percentColour, fmt.Sprintf("%3.0f", percent))
 		out = out + Colour(AccentDarkColour, "%")
 	}
 	return out
 }
-
 
 func NewCPUWidget(s *StatusBar) *CPUWidget {
 	w := &CPUWidget{}

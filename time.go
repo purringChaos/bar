@@ -1,9 +1,9 @@
 package main
 
 import (
+	"fmt"
 	"github.com/purringChaos/libKitteh/datetime"
 	"time"
-	"fmt"
 )
 
 type Time struct {
@@ -54,7 +54,6 @@ func (w *TimeWidget) OnClick(e ClickEvent) {
 	return
 }
 
-
 func dateTimeToString(t time.Time) string {
 	tdc := datetime.PrettyStruct(t, datetime.PrettyConfig{
 		Use12HourTime:      true,
@@ -64,11 +63,11 @@ func dateTimeToString(t time.Time) string {
 
 	var timeString string
 	timeString = timeString + Colour(RedColour, tdc.Hour)
-	timeString = timeString + Colour(AccentLightColour, ":") 
+	timeString = timeString + Colour(AccentLightColour, ":")
 	timeString = timeString + Colour(OrangeColour, tdc.Minutes)
 	if tdc.Seconds != "" {
 
-		timeString = timeString + Colour(AccentLightColour, ":") 
+		timeString = timeString + Colour(AccentLightColour, ":")
 		timeString = timeString + Colour(YellowColour, tdc.Seconds)
 
 	}

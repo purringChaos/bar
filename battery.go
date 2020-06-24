@@ -62,14 +62,16 @@ func (w BatteryWidget) Start() {
 			posNegIndicator = "+"
 			colour = GreenColour
 		} else if status == "Discharging" {
-			if capacity > 50 {
+			if capacity > 80 {
+				descriptor = Colour(GreenColour, "(D)")
+			} else if capacity > 50 {
 				descriptor = Colour(OrangeColour, "(D)")
 			} else {
 				descriptor = Colour(RedColour, "(D)")
 			}
 			posNegIndicator = "-"
 		} else if status == "Unknown" {
-			descriptor = Colour(YellowColour, "(D)")
+			descriptor = Colour(YellowColour, "(U)")
 			posNegIndicator = "?"
 		}
 
@@ -86,7 +88,7 @@ func (w BatteryWidget) Start() {
 		}
 
 		batInfo = batInfo + descriptor
-		batInfo = batInfo + " " + Colour(colour, fmt.Sprintf("%d", int(capacity)) + Colour(AccentDarkColour, "%"))
+		batInfo = batInfo + " " + Colour(colour, fmt.Sprintf("%d", int(capacity))+Colour(AccentDarkColour, "%"))
 
 		if powerNowPath != "" {
 			watts = readFileAsFloat(powerNowPath) / 1000000

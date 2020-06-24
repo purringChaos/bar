@@ -15,15 +15,19 @@ func debugLog(a ...interface{}) {
 }
 
 func Italics(text string) string {
-	return "<i>"+text+"</i>"
+	return "<i>" + text + "</i>"
 }
 
 func Bold(text string) string {
-	return "<b>"+text+"</b>"
+	return "<b>" + text + "</b>"
 }
 
 func Colour(colour, text string) string {
-	return "<span foreground=\""+colour+"\">"+text+"</span>"
+	return "<span foreground=\"" + colour + "\">" + text + "</span>"
+}
+
+func BgColour(colour, text string) string {
+	return "<span background=\"" + colour + "\">" + text + "</span>"
 }
 
 var colourRegex = regexp.MustCompile("(?U)(#[0-9a-fA-F]{6}){(.*?)}")

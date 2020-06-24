@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
+	"github.com/dustin/go-humanize"
 	psMem "github.com/shirou/gopsutil/mem"
 	"time"
-	"github.com/dustin/go-humanize"
 )
 
 type MemoryWidget struct {
@@ -26,7 +26,6 @@ func formatMemoryPercent(percent float64) (out string) {
 	}
 	return Colour(percentColour, fmt.Sprintf("%3.0f", percent)) + Colour(AccentDarkColour, "%")
 }
-
 
 func NewMemoryWidget(s *StatusBar) *MemoryWidget {
 	w := &MemoryWidget{}
@@ -50,24 +49,6 @@ func (w *MemoryWidget) OnClick(e ClickEvent) {
 	}
 	w.update()
 }
-
-/*func (w *MemoryWidget) updateAllMemory() {
-	for {
-		percent, _ := psMem.Percent(time.Second/4, false)
-		w.statuses[0] = formatMemoryPercent(0, percent[0])
-	}
-	w.update()
-}
-
-func (w *MemoryWidget) updatePerMemory() {
-	for {
-		percents, _ := psMem.Percent(time.Second, true)
-		for i, percent := range percents {
-			w.statuses[i+1] = formatMemoryPercent(i+1, percent)
-		}
-		w.update()
-	}
-}*/
 
 func (w MemoryWidget) updateIndex(i int) {
 	if w.index == i {
@@ -99,8 +80,7 @@ func (w *MemoryWidget) vmupdater() {
 	}
 }
 
-
 func (w *MemoryWidget) Start() {
 	w.statuses = make([]string, 6)
-	go w.vmupdater()	
+	go w.vmupdater()
 }
