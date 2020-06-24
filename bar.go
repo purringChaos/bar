@@ -123,7 +123,9 @@ func (s *StatusBar) AddWidget(w Widget) {
 }
 
 func (s *StatusBar) sendClickEvent(ce ClickEvent) {
-	s.widgets[ce.Name].OnClick(ce)
+	if a, ok := s.widgets[ce.Name]; ok {
+		a.OnClick(ce)
+	}
 }
 
 func (s *StatusBar) printInfo() {

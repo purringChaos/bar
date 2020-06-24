@@ -6,11 +6,11 @@ type MarqueeTextWidget struct {
 	s     *StatusBar
 	text  string
 	width int
-	id string
+	id    string
 }
 
-func NewMarqueeTextWidget(s *StatusBar, id string, text string, width int) MarqueeTextWidget {
-	w := MarqueeTextWidget{}
+func NewMarqueeTextWidget(s *StatusBar, id string, text string, width int) *MarqueeTextWidget {
+	w := &MarqueeTextWidget{}
 	w.s = s
 	w.text = text
 	w.id = id
@@ -18,12 +18,12 @@ func NewMarqueeTextWidget(s *StatusBar, id string, text string, width int) Marqu
 	return w
 }
 
-func (w MarqueeTextWidget) InitialInfo() Info {
+func (w *MarqueeTextWidget) InitialInfo() Info {
 	return Info{w.id, "pango", "", TextColour}
 }
 
-func (w MarqueeTextWidget) Name() string {
-	return w.text
+func (w *MarqueeTextWidget) Name() string {
+	return w.id
 }
 
 func (w MarqueeTextWidget) OnClick(e ClickEvent) {
