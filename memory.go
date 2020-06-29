@@ -65,7 +65,7 @@ func (w *MemoryWidget) vmupdater() {
 	for {
 		vm, _ := psMem.VirtualMemory()
 		swp, _ := psMem.SwapMemory()
-		w.statuses[0] = Colour(AccentLightColour, Bold("mem ")) + formatMemoryPercent(vm.UsedPercent)
+		w.statuses[0] = Colour(AccentLightColour, Bold("mem ")) + formatMemoryPercent(float64(vm.Used) / float64(vm.Total)*100.0)
 		w.updateIndex(0)
 		w.statuses[1] = Colour(AccentLightColour, Bold("swap ")) + formatMemoryPercent(swp.UsedPercent)
 		w.updateIndex(1)
@@ -77,11 +77,15 @@ func (w *MemoryWidget) vmupdater() {
 		w.updateIndex(4)
 		w.statuses[5] = Colour(AccentLightColour, Bold("swap used ")) + humanize.Bytes(swp.Used)
 		w.updateIndex(5)
+                w.statuses[6] = Colour(AccentLightColour, Bold("mem buffer ")) + humanize.Bytes(vm.Buffers)
+                w.updateIndex(6)
+                w.statuses[7] = Colour(AccentLightColour, Bold("mem cache ")) + humanize.Bytes(vm.Cached)
+                w.updateIndex(7)
 		time.Sleep(time.Second / 4)
 	}
 }
 
 func (w *MemoryWidget) Start() {
-	w.statuses = make([]string, 6)
+	w.statuses = make([]string, 8)
 	go w.vmupdater()
 }

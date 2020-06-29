@@ -67,7 +67,7 @@ func (w *CPUWidget) OnClick(e ClickEvent) {
 
 func (w *CPUWidget) updateAllCPU() {
 	for {
-		percent, _ := psCpu.Percent(time.Second/4, false)
+		percent, _ := psCpu.Percent(time.Second, false)
 		w.statuses[0] = formatCPUPercent(0, percent[0])
 		w.update()
 	}
