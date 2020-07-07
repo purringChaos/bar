@@ -46,6 +46,6 @@ func (w *MarqueeTextWidget) Start() {
 				i = i + 1
 			}
 		}
-		time.Sleep(time.Millisecond * 120)
+		time.Sleep(time.Millisecond * 90)
 	}
 }
